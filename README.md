@@ -79,6 +79,18 @@ python -m src.evaluate --data-dir /path/to/OASIS/Data --checkpoint outputs/alzhe
 Prints per-class and binary (Alzheimer's vs. Non-Demented) reports and saves
 `confusion_matrix.png` to the output directory.
 
+## Tests & leakage demo
+
+```bash
+pip install -r requirements-dev.txt
+pytest                       # unit tests: subject-disjoint splits, per-split transforms, class weights
+python -m scripts.leakage_demo   # empirical before/after proof of the leakage fix
+```
+
+The demo builds a synthetic dataset whose label is *arbitrary per subject* (so
+it is unlearnable) and shows the old image-level split reporting ~90%+ (pure
+memorization) while the subject-level split reports ~chance — the honest result.
+
 ## Notes
 
 - Subject IDs are parsed from filenames with `Config.subject_id_regex`
