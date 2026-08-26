@@ -93,6 +93,7 @@ memorization) while the subject-level split reports ~chance — the honest resul
 
 ## Notes
 
+- Lint with `ruff check src/ tests/ scripts/`.
 - Subject IDs are parsed from filenames with `Config.subject_id_regex`
   (default matches OASIS `OAS<n>_<id>`). Adjust it if your filenames differ;
   unmatched files fall back to an image-level split with a warning.
