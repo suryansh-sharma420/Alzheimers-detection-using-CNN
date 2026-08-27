@@ -16,7 +16,7 @@ import torch
 from .config import Config
 from .data import get_data_loaders
 from .model import build_model
-from .utils import get_device, set_seed
+from .utils import get_device, load_checkpoint, set_seed
 
 
 @torch.no_grad()
@@ -70,10 +70,7 @@ def evaluate(config: Config) -> dict:
     _, _, test_loader, class_names, _ = get_data_loaders(config)
 
     model = build_model(config.num_classes, config.dropout, device)
-    state = torch.load(config.checkpoint_path, map_location=device)
-    from .utils import unwrap
-
-    unwrap(model).load_state_dict(state)
+    load_checkpoint(model, config.checkpoint_path, device)
 
     y_true, y_pred, y_prob = collect_predictions(model, test_loader, device)
 
