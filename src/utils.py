@@ -32,6 +32,6 @@ def save_checkpoint(model: nn.Module, path: str) -> None:
 
 def load_checkpoint(model: nn.Module, path: str, device: torch.device) -> nn.Module:
     """Load a state dict saved by :func:`save_checkpoint` into ``model``."""
-    state = torch.load(path, map_location=device)
-    unwrap(model).load_state_dict(state)
+    state = torch.load(path)
+    unwrap(model).load_state_dict(state, strict=False)
     return model
